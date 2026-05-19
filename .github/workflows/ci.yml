@@ -39,7 +39,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    needs: [lint, test]
+    needs: [lint, test, version]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -53,3 +53,19 @@ jobs:
         run: |
           ls -la dist/ 
           echo "Build artifact ready"
+      - name: Show version
+        run: |
+          echo "Version: ${{needs.version.outputs.app_version}}"
+          echo "SHA: ${{needs.version.outputs.short_sha}}"
+
+  version:
+    name: Version - output to another job
+    runs-on: ubuntu-latest
+    outputs:
+      app_version: ${{steps.ver.outputs.version}}
+      short_sha: ${{steps.ver.outputs.sha}}
+    steps:
+      - id: ver
+        run: |
+          echo "version=1.0.0-$(date +%Y%m%d)" >> $GITHUB_OUTPUT
+          echo "sha=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
