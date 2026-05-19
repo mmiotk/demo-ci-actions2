@@ -18,7 +18,7 @@ jobs:
         run: npm ci || npm install
 
       - name: Run linter
-        run: npm run linter
+        run: npm run lint
 
       - name: Run tests
         run: npm test
