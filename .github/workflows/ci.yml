@@ -8,6 +8,13 @@ on:
       - LICENSE
   pull_request:
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      run_build:
+        description: "Run build job?"
+        required: false
+        type: boolean
+        default: true
 
 jobs:
   test:
