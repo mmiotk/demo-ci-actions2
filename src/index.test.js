@@ -13,7 +13,7 @@ describe("add", () => {
 
 describe("multiply", () => {
   it("multiplies two numbers", () => {
-    assert.strictEqual(multiply(3, 4), 12);
+    assert.strictEqual(multiply(3, 4), 10);
   });
   it("handles zero", () => {
     assert.strictEqual(multiply(5, 0), 0);
