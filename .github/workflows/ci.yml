@@ -110,3 +110,23 @@ jobs:
           echo "Run number: ${{ github.run_number }}"
           echo "Run ID: ${{ github.run_id }}"
           echo "${{github.env.APP_NAME2}}"
+
+  notify:
+    name: Notify-results
+    runs-on: ubuntu-latest
+    needs: [lint,test,build]
+    if: always()
+    steps:
+      - name: Report status
+        run: | 
+          echo "## Pipeline Summary" >> $GITHUB_STEP_SUMMARY
+          echo "| Job | Result |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Lint | ${{ needs.lint.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Test | ${{ needs.test.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Build | ${{ needs.build.result }} |" >> $GITHUB_STEP_SUMMARY
+      - name: Fail if any job is failed
+        if: contains(needs.*.result, 'failure')
+        run: |
+          echo "::error::Pipeline failed — check individual jobs"
+          exit 1

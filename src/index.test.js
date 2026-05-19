@@ -4,7 +4,7 @@ const { add, multiply, greet, substract } = require("./index");
 
 describe("add", () => {
   it("adds two numbers", () => {
-    assert.strictEqual(add(2, 3), 5);
+    assert.strictEqual(add(2, 3), 7);
   });
   it("handles negatives", () => {
     assert.strictEqual(add(-1, 1), 0);
