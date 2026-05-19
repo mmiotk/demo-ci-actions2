@@ -1,0 +1,10 @@
+{
+  "name": "demo-ci-actions",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test src/*.test.js",
+    "lint": "node src/lint-check.js",
+    "build": "mkdir -p dist && cp src/index.js dist/ && echo 'Build OK'"
+  }
+}
