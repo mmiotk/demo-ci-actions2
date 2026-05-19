@@ -54,6 +54,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     needs: [lint, test, version]
+    if: github.event_name == 'push' || github.event.inputs.run_build == 'true'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -71,6 +72,16 @@ jobs:
         run: |
           echo "Version: ${{needs.version.outputs.app_version}}"
           echo "SHA: ${{needs.version.outputs.short_sha}}"
+      - name: Write step summary
+        run: |
+          echo "## Build Report" >> $GITHUB_STEP_SUMMARY
+          echo "| Key | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Version | ${{ needs.version.outputs.app_version }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| SHA | \`${{ needs.version.outputs.short_sha }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Branch | ${{ github.ref_name }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Actor | ${{ github.actor }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Status | ✅ Success |" >> $GITHUB_STEP_SUMMARY
 
   version:
     name: Version - output to another job
