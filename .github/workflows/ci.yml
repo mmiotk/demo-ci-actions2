@@ -109,7 +109,7 @@ jobs:
           echo "Repository: ${{ github.repository }}"
           echo "Run number: ${{ github.run_number }}"
           echo "Run ID: ${{ github.run_id }}"
-          echo "${{github.env.APP_NAME2}}"
+          echo "${{vars.APP_NAME2}}"
 
   notify:
     name: Notify-results
