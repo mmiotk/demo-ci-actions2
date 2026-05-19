@@ -98,3 +98,4 @@ jobs:
           echo "Repository: ${{ github.repository }}"
           echo "Run number: ${{ github.run_number }}"
           echo "Run ID: ${{ github.run_id }}"
+          echo "${{env.APP_NAME2}}"
